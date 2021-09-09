@@ -1,0 +1,9 @@
+[elthateng@login01 hw3]$ module purge
+[elthateng@login01 hw3]$ module load slurm
+[elthateng@login01 hw3]$ module load gpu
+[elthateng@login01 hw3]$ module load cuda
+[elthateng@login01 hw3]$ module load pgi
+[elthateng@login01 hw3]$ srun --partition=gpu-shared --account=csd453 --nodes=1 --gpus=1 --ntasks-per-node=1 --mem=80GB --time=03:00:00 --pty --wait=0 /bin/bash
+[elthateng@exp-5-59 hw3]$ nvcc -o jacobi-cuda jacobi-cuda.cu
+[elthateng@exp-5-59 hw3]$ ./jacobi-cuda 
+

@@ -1,0 +1,34 @@
+[elthateng@login02 hw3]$ srun --partition=gpu-shared --account=csd453 --nodes=1 --gpus=1 --ntasks-per-node=1 --mem=80GB --time=00:30:00 --pty --wait=0 /bin/bash
+srun: job 2326391 queued and waiting for resources
+srun: job 2326391 has been allocated resources
+
+[elthateng@exp-5-60 hw3]$ pgcc -acc -ta=nvidia -Minfo=accel -o jacobi-acc_2048 jacobi-acc.c
+main:
+     53, Generating copy(A[:][:]) [if not already present]
+         Generating copyin(Anew[:][:]) [if not already present]
+     55, Generating implicit copy(error) [if not already present]
+     58, Loop is parallelizable
+     60, Loop is parallelizable
+         Generating Tesla code
+         58, #pragma acc loop gang, vector(4) /* blockIdx.y threadIdx.y */
+             Generating implicit reduction(max:error)
+         60, #pragma acc loop gang, vector(32) /* blockIdx.x threadIdx.x */
+     69, Loop is parallelizable
+     71, Loop is parallelizable
+         Generating Tesla code
+         69, #pragma acc loop gang, vector(4) /* blockIdx.y threadIdx.y */
+         71, #pragma acc loop gang, vector(32) /* blockIdx.x threadIdx.x */
+         
+[elthateng@exp-5-60 hw3]$ ./jacobi-acc_2048
+Jacobi relaxation Calculation: 2048 x 2048 mesh
+    0, 0.250000
+  100, 0.002397
+  200, 0.001204
+  300, 0.000804
+  400, 0.000603
+  500, 0.000483
+  600, 0.000403
+  700, 0.000345
+  800, 0.000302
+  900, 0.000269
+ total: 0.446523 s

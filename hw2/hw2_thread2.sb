@@ -1,0 +1,26 @@
+#!/bin/bash
+## Example of OpenMP code running on a shared node
+#SBATCH --job-name="hw2_openmp"
+#SBATCH --output="hw2_openmp.%j.%N.out"
+#SBATCH --partition=shared
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=32G
+#SBATCH --export=ALL
+#SBATCH --account=csd453
+#SBATCH -t 00:10:00
+
+# GNU environment
+module purge
+module load slurm
+module load cpu
+module load gcc
+module load openmpi
+
+#SET the number of openmp threads
+export OMP_NUM_THREADS=2
+g++ -fopenmp hw2.cpp
+
+#Run the openmp job
+./a.out

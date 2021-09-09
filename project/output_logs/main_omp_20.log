@@ -1,0 +1,9 @@
+
+  Number of processors available = 20
+  Number of threads =              20
+Step 1 time: 51885672 microsec 
+Step 2 time: 615699394 microsec 
+Step 3 time: 496585 microsec 
+Total time: 668081652 microsec 
+Step 4 time: 12115 microsec 
+Elapsed time = 668.094 sec

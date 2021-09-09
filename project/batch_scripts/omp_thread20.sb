@@ -1,0 +1,26 @@
+#!/bin/bash
+## Example of OpenMP code running on a shared node
+#SBATCH --job-name="tpf_omp"
+#SBATCH --output="omp_thread20.%j.%N.out"
+#SBATCH --partition=shared
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=20
+#SBATCH --mem=80G
+#SBATCH --export=ALL
+#SBATCH --account=csd453
+#SBATCH -t 01:00:00
+
+# GNU environment
+module purge
+module load slurm
+module load cpu
+module load gcc
+
+# SET the number of openmp threads
+export OMP_NUM_THREADS=20
+g++ -fopenmp -o main_omp main_omp.cpp
+#g++ -fopenmp -o main_omp_coarse main_omp_coarse.cpp
+
+# Run the openmp job
+./main_omp
+#./main_omp_coarse
